@@ -57,9 +57,6 @@ Welcome to the Online Coding Judge System! This platform is designed to evaluate
   - User activity tracking.
   - Performance reports and insights.
 
-## Conclusion
-This Online Coding Judge System aims to provide a comprehensive and user-friendly platform for evaluating programming skills. We look forward to your feedback and support as we continue to enhance and improve the system.
-
 ## Future Enhancements
 - Additional language support and advanced problem types.
 - Enhanced analytics and machine learning integration for personalized feedback.
