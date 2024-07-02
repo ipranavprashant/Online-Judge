@@ -1,0 +1,71 @@
+docker image build -t cpp-compiler .
+
+to delete a docker image,
+docker image rm <image-id>
+
+can we have multiple run statements in docker?
+Yes we can.
+
+can we have multiple CMD or ENTRYPOINT statementsin docker?
+No, because we can run the server just once and not multiple times, because if something is running how can you run the running thing again?
+
+docker images
+docker run <image-id>  -> to create a container out of a docker image
+we can alternatively use,
+docker container run -d <image-id> -> -d flag is for detach, you can run without -d also
+
+in case you have to name your container
+docker container run -d --name cpp-compiler-container <image-id>
+
+NOTE: we can create multiple containers out of a single image
+
+docker container ls
+docker container ls -a
+docker container start <container-id>
+
+if you just want to know the running containers run,
+docker conatiner ps or simply docker ps
+
+
+docker exec -it <container-id> <shellname> 
+shell name ca be sh bash etc  [no . required] -> this signifies you can use shell commands (imp while hosting on aws)
+eg: docker container exec -it de649e019d54 sh
+/app #
+
+
+docker container stop <container-id>
+
+docker container kill <container-id>
+
+
+why docker container stop takes a lot more time than docker container kill, why?
+
+docker logs <container-id> ->to check the logs (important while debugging)
+
+docker logs <container-id> -n 3 -> shows the last three logs
+
+
+docker system prune
+This will remove:
+  - all stopped containers
+  - all networks not used by at least one container
+  - all dangling images
+  - unused build cache
+
+when you create a new container from an image from which a container was already created then the new one will be to normal image, while the old one becomes a dangling image
+
+
+//port-mapping
+docker run -d --name portmapping1 -p 8080:8080 cpp-compiler
+
+
+//inorder to push your docker image into the docker hub you follow the following steps,
+
+create a repository and know the name
+docker buildx build -t ipranavprashant/coding-compiler:1.0.0 .
+docker login
+docker push ipranavprashant/coding-compiler:1.0.0
+
+
+to remove all the container both stopped and running,
+docker rm $(docker ps -aq)

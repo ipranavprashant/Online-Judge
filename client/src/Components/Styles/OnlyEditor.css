@@ -1,0 +1,32 @@
+.Editor-Compiler {
+  padding: 20px;
+  background-color: #282c34;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-height: 100vh;
+  margin-top: 5rem;
+  margin-left: 15rem;
+  margin-right: 15rem;
+  /* margin-bottom: 5rem; */
+}
+
+.output-container-compiler {
+  min-height: 200px;
+  background-color: #1e1e1e;
+  color: #dcdcdc;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap; /* Preserve whitespace and line breaks */
+  overflow: auto; /*Add scrollbars if content overflows*/
+  max-height: fit-content;
+  margin-left: 15rem;
+  margin-right: 15rem;
+  margin-bottom: 5rem;
+}
+
+.output-title-compiler {
+  font-weight: bold;
+  margin-bottom: 10px;
+}

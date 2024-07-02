@@ -1,0 +1,42 @@
+ec2 instance provide us a powerful linux system which you can use to do your shell scripting and giving instructions, installing dependencies etc
+s3 bucket is to store static data like images, codes or any static file
+
+we use aws for the following reasons:
+security
+scalability -> eg leetcode scales itself on saturday afternoon to sunday afernoon to accomodate the two contests it takes, and again descales as and when not required
+cost efficiency -> you pay for only what you use
+
+Learnt about ECS, ECR and EC2
+
+
+
+
+//actual pushing of the docker image to the aws 
+//step 1: search ecr create a repo and go to push commands and just copy-paste the 4 commands mentioned over there.
+
+pranavprashant@Pranavs-MacBook-Air compiler % aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g2u1p5k4
+zsh: command not found: aws
+Error: Cannot perform an interactive login from a non TTY device
+pranavprashant@Pranavs-MacBook-Air compiler % docker login
+Authenticating with existing credentials...
+Login Succeeded
+pranavprashant@Pranavs-MacBook-Air compiler % aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g2u1p5k4
+zsh: command not found: aws
+Error: Cannot perform an interactive login from a non TTY device
+pranavprashant@Pranavs-MacBook-Air compiler % aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g2u1p5k4
+
+Unable to locate credentials. You can configure credentials by running "aws configure".
+Error: Cannot perform an interactive login from a non TTY device
+pranavprashant@Pranavs-MacBook-Air compiler % aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g2u1p5k4
+
+An error occurred (AccessDeniedException) when calling the GetAuthorizationToken operation: User: arn:aws:iam::878312698351:user/ipranavprashant is not authorized to perform: ecr-public:GetAuthorizationToken on resource: * because no identity-based policy allows the ecr-public:GetAuthorizationToken action
+Error: Cannot perform an interactive login from a non TTY device
+pranavprashant@Pranavs-MacBook-Air compiler % aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g2u1p5k4
+Login Succeeded
+pranavprashant@Pranavs-MacBook-Air compiler % 
+
+you have to go to IAMUSER in the aws and setup things to bypass this error, what you essentially are doing is permitting yourself to access your aws account in a cli in a different desktop
+rest of the command goes smoothly
+
+Homework:
+what is vpc, inbound rules and outbound rules?

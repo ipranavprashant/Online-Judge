@@ -1,0 +1,26 @@
+body {
+  overflow-x: hidden;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  /* flex-wrap: wrap; */
+}
+
+.question-section {
+  padding: 20px;
+  border-right: 4px solid #ccc;
+  overflow-y: auto;
+}
+
+.editor-section {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  min-width: 50%;
+  max-width: 50%;
+  max-height: 100%;
+  margin-top: 1rem;
+  overflow-y: auto;
+}

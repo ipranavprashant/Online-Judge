@@ -1,0 +1,112 @@
+.Editor {
+  /* margin: 20px; */
+  padding: 20px;
+  background-color: #282c34;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.language-select {
+  display: flex;
+  align-items: center;
+}
+
+.language-select label {
+  color: #ffffff;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.language-select select {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.reset-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #ff4c4c;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-btn:hover {
+  background-color: #ff6666;
+}
+
+/* .monaco-editor {
+  border-radius: 5px;
+  overflow: hidden;
+} */
+.monaco-editor {
+  max-height: 50vh;
+  min-height: 50vh;
+  max-width: 50wh;
+  width: 100%;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.run-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  background-color: #4caf50;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 3px;
+}
+.submit-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  background-color: #277aff;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 3px;
+}
+
+.run-btn:hover,
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+/* Existing styles */
+
+.output-container {
+  min-height: 200px;
+  background-color: #1e1e1e;
+  color: #dcdcdc;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap; /* Preserve whitespace and line breaks */
+  overflow: auto; /*Add scrollbars if content overflows*/
+  max-height: fit-content;
+}
+
+.output-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}

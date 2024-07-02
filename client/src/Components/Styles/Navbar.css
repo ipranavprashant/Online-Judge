@@ -1,0 +1,90 @@
+/* Navbar.css */
+
+.navbar {
+  background-color: #282c34; /* Dark background color */
+  padding: 10px 20px; /* Padding around navbar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.navbar-logo {
+  font-size: 1.5rem; /* Larger font size for logo */
+  color: #fff; /* White text color */
+  text-decoration: none;
+}
+
+.navbar-nav {
+  list-style-type: none; /* Remove default list styles */
+  display: flex;
+  gap: 20px; /* Gap between navigation items */
+}
+
+.nav-item {
+  margin: 0;
+}
+
+.nav-link {
+  color: #fff; /* White text color */
+  text-decoration: none;
+  padding: 10px 15px; /* Padding around links */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.nav-link:hover {
+  background-color: #555; /* Darker background on hover */
+  text-decoration: none;
+}
+
+.hamburger-menu {
+  display: none; /* Hide by default */
+  cursor: pointer;
+}
+
+.line {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px;
+  transition: transform 0.3s ease;
+}
+
+.line.active:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 5px);
+}
+
+.line.active:nth-child(2) {
+  opacity: 0;
+}
+
+.line.active:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -5px);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: #333;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .navbar-links.active {
+    display: block;
+  }
+
+  .hamburger-menu {
+    display: block;
+  }
+}

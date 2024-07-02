@@ -1,0 +1,65 @@
+.container-problem-list {
+  width: 1500px;
+  height: auto;
+  background-color: white;
+  margin: 10px auto;
+  margin-top: 30px;
+  border-radius: 50px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+Link {
+  font-style: none;
+  text-decoration: none;
+}
+.title,
+.problem-list {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+.stylel {
+  list-style-type: none;
+  margin-right: 50px;
+}
+
+.title:hover {
+  color: #639184;
+  cursor: default;
+}
+.easy,
+.medium,
+.hard {
+  margin: 20px;
+  background-color: #dbdbdb;
+  color: rgb(72, 72, 72);
+  width: 1000px;
+  height: 30px;
+  text-align: center;
+  padding: 2px;
+  padding-top: 13px;
+  border-radius: 18px;
+}
+
+.easy:hover {
+  background-color: #639184;
+  color: white;
+  cursor: pointer;
+}
+
+.medium:hover {
+  background-color: #639184;
+  color: white;
+  cursor: pointer;
+}
+
+.hard:hover {
+  background-color: #639184;
+  color: white;
+  cursor: pointer;
+}
