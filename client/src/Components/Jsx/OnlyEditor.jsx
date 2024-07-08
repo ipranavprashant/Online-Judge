@@ -32,14 +32,14 @@ const OnlyEditor = () => {
   // Boilerplate code for JavaScript
   console.log("Hey, Pranav Prashant! Ahaa! feels nice to be back home");`,
     ruby: `
-  # Boilerplatecode for Ruby
+  # Boilerplate code for Ruby
   puts "Hey, Pranav Prashant!"
   `,
   };
 
   const [selectedLanguage, setSelectedLanguage] = useState("cpp");
   const [code, setCode] = useState(
-    localStorage.getItem("savedCode") || defaultCode[selectedLanguage]
+    localStorage.getItem("savedCode") || defaultCode["cpp"]
   );
   const [output, setOutput] = useState("--no stdouts--");
 
@@ -75,11 +75,10 @@ const OnlyEditor = () => {
     const payload = {
       language: selectedLanguage,
       code: code,
-      input: "NIL", // Assuming default input is "NIL"
+      input: "NIL",
     };
     try {
-      const { data } = await axios.post(`${COMPILER_URL}/run`, payload);
-
+      const { data } = await axios.post(`${COMPILER_URL}/compile`, payload);
       console.log(data);
       setOutput(data.output);
     } catch (error) {

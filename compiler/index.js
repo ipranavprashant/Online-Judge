@@ -76,6 +76,55 @@ app.post("/run", async (req, res) => {
   }
 });
 
+app.post("/compile", async (req, res) => {
+  const { language = "cpp", code, input, problemId } = req.body;
+
+  if (code === undefined)
+    return res
+      .status(400)
+      .json({ success: false, message: "Empty code body!" });
+
+  // Generate files (if needed) and execute user's code
+  const filepath = generateFile(language, code);
+  const inputFilePath = generateInputFile(input);
+  let output;
+
+  try {
+    switch (language) {
+      case "cpp":
+        output = await executeCpp(filepath, inputFilePath);
+        break;
+      case "python":
+        output = await executePython(filepath, inputFilePath);
+        break;
+      case "javascript":
+        output = await executeJavaScript(filepath, inputFilePath);
+        break;
+      case "java":
+        output = await executeJava(filepath, inputFilePath);
+        break;
+      default:
+        return res
+          .status(400)
+          .json({ success: false, message: "Unsupported language!" });
+    }
+
+    // Respond with results
+    return res.json({
+      language,
+      code,
+      input,
+      output,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error executing code",
+    });
+  }
+});
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
