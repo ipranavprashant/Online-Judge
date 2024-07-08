@@ -10,8 +10,7 @@ RUN apk update && \
     g++ \
     openjdk11-jre \
     python3 \
-    py3-pip \
-    cpp11
+    py3-pip
 
 # Install npm dependencies based on package.json changes only
 COPY package.json .

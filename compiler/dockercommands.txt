@@ -69,3 +69,22 @@ docker push ipranavprashant/coding-compiler:1.0.0
 
 to remove all the container both stopped and running,
 docker rm $(docker ps -aq)
+
+
+
+To build a Docker image with the linux/amd64 platform on a Mac, you need to specify the platform explicitly when you build the image. Here’s how you can do it:
+
+Ensure Docker is updated: Make sure you are using the latest version of Docker Desktop for Mac, as older versions might not support the --platform option.
+
+Build the Docker image with the --platform option:
+When building your Docker image, specify the platform using the --platform flag.
+
+docker build --platform linux/amd64 -t your-image-name .
+
+Similarly, run the Docker image with the --platform option:
+
+docker run --platform linux/amd64 your-image-name
+
+
+pushing is same:
+docker push ipranavprashant/coding-compiler-v3:1.0.0

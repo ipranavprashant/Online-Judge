@@ -7,7 +7,8 @@ const verdict = async (problemId, executeCode) => {
       problemId = 0;
     }
     const response = await axios.get(
-      `http://localhost:9000/byProblem/${problemId}`
+      // `http://localhost:9000/byProblem/${problemId}`
+      `https://online-judge-eb8n.onrender.com/byProblem/${problemId}`
     );
     const testCases = response.data; // Assuming response.data is an array of test cases
 
