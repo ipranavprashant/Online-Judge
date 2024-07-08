@@ -3,15 +3,21 @@ import MonacoEditor from "@monaco-editor/react";
 import axios from "axios";
 import "../Styles/Editor.css";
 import TestCaseForm from "./TestCaseForm";
+import config from "./config";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Editor = () => {
+  const COMPILER_URL = config.COMPILER_URL;
+  const navigate = useNavigate();
+
   const defaultCode = {
     cpp: `
-// Boilerplate code for C++
+  // Boilerplate code for C++
   #include <iostream>
   using namespace std;
   int main() { 
-      cout << "Hey, Pranav Prashant!";       
+      cout << "Hey, Pranav Prashant! pheww cpp is like that old grape vine, older the better ";       
       return 0; 
   }`,
 
@@ -19,15 +25,14 @@ const Editor = () => {
   // Boilerplate code for Java
   public class Main {
       public static void main(String[] args) {
-          System.out.println("Hey, Pranav Prashant!");
+          System.out.println("Hey, Pranav Prashant! I know Java is industry relevant :(");
       }
   }`,
-    python: `
-  # Boilerplate code for Python
-  print("Hey, Pranav Prashant!")`,
+    python: `print("Hey, Pranav Prashant! ever heard of slow yet powerful?")`,
+
     javascript: `
   // Boilerplate code for JavaScript
-  console.log("Hey, Pranav Prashant!");`,
+  console.log("Hey, Pranav Prashant! Ahaa! feels nice to be back home");`,
     ruby: `
   # Boilerplatecode for Ruby
   puts "Hey, Pranav Prashant!"
@@ -71,24 +76,49 @@ const Editor = () => {
 
   const [output, setOutput] = useState("--no stdouts--");
   const [input, setInput] = useState("NIL");
+  const [verdict, setVerdict] = useState("--submit to see the verdict--");
+  const [timeComplexity, setTimeComplexity] = useState("");
 
+  const { id } = useParams();
   const handleRun = async () => {
     const payload = {
       language: selectedLanguage,
       code: code,
       input: input,
+      problemId: parseInt(id, 10) + 1,
     };
     try {
-      // const { data } = await axios.post("http://localhost:8080/run", payload);
-      const { data } = await axios.post(
-        "http://15.206.166.120:8080/run",
-        payload
-      );
+      const { data } = await axios.post(`${COMPILER_URL}/run`, payload);
       console.log(data);
       setOutput(data.output);
+      setVerdict("--submit to see the verdict--");
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleSubmit = async () => {
+    console.log(id);
+    const payload = {
+      language: selectedLanguage,
+      code: code,
+      input: input,
+      problemId: parseInt(id, 10) + 1,
+    };
+    try {
+      const { data } = await axios.post(`${COMPILER_URL}/run`, payload);
+      console.log(data);
+      setOutput(data.output);
+      setVerdict(data.verdict);
+      setTimeComplexity(data.timeComplexity);
+      console.log(verdict);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleEditorial = () => {
+    navigate(`/editorial/${id}`);
   };
 
   const [expectedOutput, setExpectedOutput] = useState("");
@@ -115,6 +145,9 @@ const Editor = () => {
               ))}
             </select>
           </div>
+          <button className="editorial-btn" onClick={handleEditorial}>
+            Editorial
+          </button>
           <button className="reset-btn" onClick={resetCode}>
             Reset
           </button>
@@ -138,7 +171,7 @@ const Editor = () => {
             <button className="run-btn" onClick={handleRun}>
               Run
             </button>
-            <button className="submit-btn" onClick={handleRun}>
+            <button className="submit-btn" onClick={handleSubmit}>
               Submit
             </button>
           </div>
@@ -147,16 +180,38 @@ const Editor = () => {
 
       <div className="output-container">
         <p className="output-title">Stdout:</p>
-        <div>{output}</div>
-        {output === expectedOutput ? (
-          <p>Congrats, the Output Matches with the expected output!</p>
+        {output === "--no stdouts--" ? (
+          <p>"--no stdouts--"</p>
+        ) : (
+          <div>{output}</div>
+        )}
+        <br />
+        <p className="output-title">Verdict:</p>
+        {verdict === "Error in verifying test cases" ? (
+          <>
+            {verdict}
+            <p>please email at ipranavprashant@gmail.com to report</p>
+          </>
+        ) : (
+          <p>{verdict}</p>
+        )}
+        {timeComplexity}
+        {/* {output === expectedOutput ? (
+          <>
+            <p className="output-title">Verdict:</p>
+            <p>{verdict}</p>
+            <p>Congrats, the Output Matches with the expected output!</p>
+          </>
         ) : input !== "NIL" ? (
-          <p>Sorry, the Output doesn't match with the expected output</p>
+          <>
+            <p className="output-title">Verdict:</p>
+            <p>Sorry, the Output doesn't match with the expected output</p>
+          </>
         ) : (
           <p></p>
-        )}
+        )} */}
       </div>
-      <h2>Add Custom Testcases:</h2>
+      <h2>Check Against Custom Testcases:</h2>
       <TestCaseForm addTestCase={addTestCase} />
     </>
   );

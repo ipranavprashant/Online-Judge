@@ -6,14 +6,26 @@ const TestCaseList = ({ testCases }) => {
       {testCases.map((testCase) => (
         <div key={testCase.id} className="test-case-item">
           <h3>Test Case {testCase.id}</h3>
-          <p>
-            <strong>Input:</strong>
-          </p>
-          <pre>{testCase.input}</pre>
+          {testCase.inputs.map((input, index) => (
+            <div key={index}>
+              <p>
+                <strong>{input.name}:</strong>
+              </p>
+              <pre>
+                {input.value.map((value, idx) => (
+                  <span key={idx}>{value} </span>
+                ))}
+              </pre>
+            </div>
+          ))}
           <p>
             <strong>Expected Output:</strong>
           </p>
-          <pre>{testCase.output}</pre>
+          <pre>
+            {testCase.output.map((value, idx) => (
+              <span key={idx}>{value} </span>
+            ))}
+          </pre>
         </div>
       ))}
     </div>

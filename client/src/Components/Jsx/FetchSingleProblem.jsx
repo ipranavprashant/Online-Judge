@@ -302,6 +302,9 @@ const problems = [
             Every close bracket has a corresponding open bracket of the same
             type.
           </li>
+          <li>
+            Return string "true" or "false" as the answer and not boolean!
+          </li>
         </ol>
 
         <p>&nbsp;</p>
@@ -869,7 +872,7 @@ const FetchSingleProblem = () => {
       <div className="app">
         <div className="question-section">
           {!id ? problems[0] : problems[id]}
-          <TestCasesComponent />
+          <TestCasesComponent index={id} />
         </div>
         <div className="editor-section">
           <Editor />

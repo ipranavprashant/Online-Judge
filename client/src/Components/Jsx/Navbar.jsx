@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../Styles/Navbar.css";
+import { logout, selectUser } from "../../utils/userSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [problemId, setProblemId] = useState(null);
   const [date, setDate] = useState("");
@@ -40,6 +49,15 @@ const Navbar = () => {
 
   const id = Math.floor(Math.random() * 10); // Returns a random integer from 0 to 9:
 
+  const handleLogout = () => {
+    // localStorage.removeItem("authToken");
+    dispatch(logout());
+    navigate("/login").then(() => {
+      window.location.reload(); // reload the page after navigating to login
+      // alert("Successfully logged out");
+    });
+  };
+  console.log(user);
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -50,11 +68,7 @@ const Navbar = () => {
       <div className={`navbar-links ${isMenuOpen ? "active" : ""}`}>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link
-              to="/upcoming-contests"
-              className="nav-link"
-              onClick={toggleMenu}
-            >
+            <Link to="/contests" className="nav-link" onClick={toggleMenu}>
               Contests
             </Link>
           </li>
@@ -87,9 +101,20 @@ const Navbar = () => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/login" className="nav-link" onClick={toggleMenu}>
-              Login
-            </Link>
+            {user && (
+              <>
+                <Link to="/login" className="nav-link">
+                  Logout
+                </Link>
+              </>
+            )}
+            {!user && (
+              <>
+                <Link to="/login" onClick={handleLogout} className="nav-link">
+                  Sign In
+                </Link>
+              </>
+            )}
           </li>
         </ul>
       </div>

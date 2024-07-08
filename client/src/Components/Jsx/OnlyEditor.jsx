@@ -5,15 +5,18 @@ import "../Styles/OnlyEditor.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import axios from "axios";
+import config from "./config";
 
 const OnlyEditor = () => {
+  const COMPILER_URL = config.COMPILER_URL;
+
   const defaultCode = {
     cpp: `
   // Boilerplate code for C++
   #include <iostream>
   using namespace std;
   int main() { 
-      cout << "Hey, Pranav Prashant!";       
+      cout << "Hey, Pranav Prashant! pheww cpp is like that old grape vine, older the better ";       
       return 0; 
   }`,
 
@@ -21,15 +24,13 @@ const OnlyEditor = () => {
   // Boilerplate code for Java
   public class Main {
       public static void main(String[] args) {
-          System.out.println("Hey, Pranav Prashant!");
+          System.out.println("Hey, Pranav Prashant! I know Java is industry relevant :(");
       }
   }`,
-    python: `
-  # Boilerplate code for Python
-  print("Hey, Pranav Prashant!")`,
+    python: `print("Hey, Pranav Prashant! ever heard of slow yet powerful?")`,
     javascript: `
   // Boilerplate code for JavaScript
-  console.log("Hey, Pranav Prashant!");`,
+  console.log("Hey, Pranav Prashant! Ahaa! feels nice to be back home");`,
     ruby: `
   # Boilerplatecode for Ruby
   puts "Hey, Pranav Prashant!"
@@ -77,11 +78,8 @@ const OnlyEditor = () => {
       input: "NIL", // Assuming default input is "NIL"
     };
     try {
-      // const { data } = await axios.post("http://localhost:8080/run", payload);
-      const { data } = await axios.post(
-        "http://15.206.166.120:8080/run",
-        payload
-      );
+      const { data } = await axios.post(`${COMPILER_URL}/run`, payload);
+
       console.log(data);
       setOutput(data.output);
     } catch (error) {
@@ -131,7 +129,7 @@ const OnlyEditor = () => {
             <button className="run-btn" onClick={handleRun}>
               Run
             </button>
-            <button className="submit-btn">Submit</button>
+            {/* <button className="submit-btn">Submit</button> */}
           </div>
         </div>
       </div>

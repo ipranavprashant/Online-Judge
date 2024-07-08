@@ -1,0 +1,77 @@
+/* Editorial.css */
+
+.editorial-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.language-selector {
+  margin-bottom: 20px;
+}
+
+.language-selector .react-select-container {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.language-selector .react-select__control {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: none;
+}
+
+.language-selector .react-select__menu {
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.language-selector .react-select__option {
+  cursor: pointer;
+}
+
+.language-selector .react-select__option--is-selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.language-selector .react-select__option--is-focused {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+/* SyntaxHighlighter styles */
+.syntax-highlighter {
+  margin-top: 20px;
+}
+
+.syntax-highlighter pre {
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.copy-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  margin-left: 650px;
+  margin-bottom: 5px;
+}
+
+.copy-button:hover {
+  background-color: #0056b3;
+}
