@@ -1,15 +1,27 @@
+# Use a lightweight Node.js image with Node.js version 20 on Alpine Linux
 FROM node:20-alpine
+
+# Set the working directory inside the container
 WORKDIR /app
-RUN apk update && apk add --no-cache g++
-#this is an improvement to our dockerfile, meaning npm i will now run only if the package.json isnt the same, increasing the efficiency
+
+# Install necessary packages for various languages and development tools
+RUN apk update && \
+    apk add --no-cache \
+    g++ \
+    openjdk11-jre \
+    python3 \
+    py3-pip \
+    cpp11
+
+# Install npm dependencies based on package.json changes only
 COPY package.json .
-RUN npm i 
+RUN npm install
 
+# Copy the entire application code to the working directory
 COPY . .
+
+# Expose port 8080 for the application
 EXPOSE 8080
-CMD ["node","index.js"]
 
-# ENTRYPOINT ["npm","run","start"]
-# CMD and ENTRYPOINT are one and the same thing
-
-# what is volume in docker and how can we utilise it?
+# Start the application with the default CMD
+CMD ["node", "index.js"]
