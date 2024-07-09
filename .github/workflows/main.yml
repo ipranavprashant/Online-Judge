@@ -12,7 +12,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
         with:
-          submodules: true
+          submodules: true  # Add this if your repo uses submodules
       
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -29,7 +29,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./compiler  # Specify the context to the compiler folder
+          file: ./compiler/Dockerfile  # Specify the path to the Dockerfile within the context
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
