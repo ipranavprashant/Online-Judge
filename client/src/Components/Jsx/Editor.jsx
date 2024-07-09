@@ -77,7 +77,7 @@ const Editor = () => {
   const [output, setOutput] = useState("--no stdouts--");
   const [input, setInput] = useState("NIL");
   const [verdict, setVerdict] = useState("--submit to see the verdict--");
-  const [timeComplexity, setTimeComplexity] = useState("");
+  const [timeComplexity, setTimeComplexity] = useState("NA");
 
   const { id } = useParams();
   const handleRun = async () => {
@@ -121,10 +121,32 @@ const Editor = () => {
     navigate(`/editorial/${id}`);
   };
 
-  const [expectedOutput, setExpectedOutput] = useState("");
-  const addTestCase = (input, output) => {
-    setInput(input);
-    setExpectedOutput(output);
+  const [customInput, setCustomInput] = useState("");
+  const [customOutput, setCustomOutput] = useState("");
+
+  const handleCustomTestCase = async (e) => {
+    e.preventDefault();
+    // setInput("");
+    // setOutput("");
+    const payload = {
+      language: selectedLanguage,
+      code: code,
+      input: customInput,
+      problemId: parseInt(id, 10) + 1,
+    };
+    try {
+      const { data } = await axios.post(
+        `${COMPILER_URL}/custom-testcase`,
+        payload
+      );
+      console.log(data);
+      setOutput(data.output);
+      if (customOutput === output)
+        setVerdict("Congratulations the output is as you expected!");
+      else setVerdict("The output isn't as you expected!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -179,23 +201,40 @@ const Editor = () => {
       </div>
 
       <div className="output-container">
-        <p className="output-title">Stdout:</p>
-        {output === "--no stdouts--" ? (
-          <p>"--no stdouts--"</p>
-        ) : (
-          <div>{output}</div>
-        )}
-        <br />
-        <p className="output-title">Verdict:</p>
-        {verdict === "Error in verifying test cases" ? (
-          <>
-            {verdict}
-            <p>please email at ipranavprashant@gmail.com to report</p>
-          </>
-        ) : (
-          <p>{verdict}</p>
-        )}
-        {timeComplexity}
+        <div>
+          <p className="output-title">Stdout:</p>
+          {output === "--no stdouts--" ? (
+            <p>"--no stdouts--"</p>
+          ) : (
+            <div>{output}</div>
+          )}
+          <br />
+        </div>
+
+        <div>
+          <p className="output-title">Verdict:</p>
+          {verdict === "Error in verifying test cases" ? (
+            <>
+              {verdict}
+              <p>
+                if you think this is a mistake, please email at
+                ipranavprashant@gmail.com to report
+              </p>
+            </>
+          ) : (
+            <p>{verdict}</p>
+          )}
+        </div>
+
+        <div className="margin-top">
+          <p className="output-title">Time Complexity Analysis:</p>
+          {timeComplexity === "NA" ? (
+            <>{timeComplexity}</>
+          ) : (
+            <p> {timeComplexity}</p>
+          )}
+        </div>
+
         {/* {output === expectedOutput ? (
           <>
             <p className="output-title">Verdict:</p>
@@ -212,7 +251,28 @@ const Editor = () => {
         )} */}
       </div>
       <h2>Check Against Custom Testcases:</h2>
-      <TestCaseForm addTestCase={addTestCase} />
+
+      <form className="test-case-form" onSubmit={handleCustomTestCase}>
+        <div>
+          <label htmlFor="input">Input:</label>
+          <textarea
+            id="input"
+            value={customInput}
+            onChange={(e) => setCustomInput(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="output">Expected Output:</label>
+          <textarea
+            id="output"
+            value={customOutput}
+            onChange={(e) => setCustomOutput(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit">Verify</button>
+      </form>
     </>
   );
 };

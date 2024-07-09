@@ -15,7 +15,7 @@ const { verdict } = require("./verdict");
 const app = express();
 const cors = require("cors");
 const { estimateTimeComplexity } = require("./estimateTimeComplexity");
-
+const run = require("./geminiAPI");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -57,7 +57,10 @@ app.post("/run", async (req, res) => {
 
     // Call verdict function to verify output against test cases
     const verificationResult = await verdict(problemId, executeCode);
-    const timeComplexityAnalysis = estimateTimeComplexity(code); // Estimate time complexity
+    let prompt = "Whats the time complexity of the following code: " + code;
+    // let prompt = "hi how are you!";
+    const timeComplexityAnalysis = await run(prompt); // Estimate time complexity
+    // console.log(timeComplexityAnalysis);
 
     // Respond with results
     return res.json({
@@ -77,6 +80,55 @@ app.post("/run", async (req, res) => {
 });
 
 app.post("/compile", async (req, res) => {
+  const { language = "cpp", code, input, problemId } = req.body;
+
+  if (code === undefined)
+    return res
+      .status(400)
+      .json({ success: false, message: "Empty code body!" });
+
+  // Generate files (if needed) and execute user's code
+  const filepath = generateFile(language, code);
+  const inputFilePath = generateInputFile(input);
+  let output;
+
+  try {
+    switch (language) {
+      case "cpp":
+        output = await executeCpp(filepath, inputFilePath);
+        break;
+      case "python":
+        output = await executePython(filepath, inputFilePath);
+        break;
+      case "javascript":
+        output = await executeJavaScript(filepath, inputFilePath);
+        break;
+      case "java":
+        output = await executeJava(filepath, inputFilePath);
+        break;
+      default:
+        return res
+          .status(400)
+          .json({ success: false, message: "Unsupported language!" });
+    }
+
+    // Respond with results
+    return res.json({
+      language,
+      code,
+      input,
+      output,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error executing code",
+    });
+  }
+});
+
+app.post("/custom-testcase", async (req, res) => {
   const { language = "cpp", code, input, problemId } = req.body;
 
   if (code === undefined)

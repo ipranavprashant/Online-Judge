@@ -88,3 +88,17 @@ docker run --platform linux/amd64 your-image-name
 
 pushing is same:
 docker push ipranavprashant/coding-compiler-v3:1.0.0
+
+
+
+
+To Retagging the Image:
+
+docker tag cpp-compiler-v4:latest ipranavprashant/coding-compiler-v4:1.0.0
+This command assigns a new tag to your existing image, making it ready for the push to Docker Hub.
+
+
+
+
+
+

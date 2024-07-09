@@ -112,7 +112,7 @@
 /* Existing styles */
 
 .output-container {
-  min-height: 200px;
+  min-height: 400px;
   background-color: #1e1e1e;
   color: #dcdcdc;
   padding: 10px;
@@ -127,4 +127,8 @@
 .output-title {
   font-weight: bold;
   margin-bottom: 10px;
+}
+
+.margin-top {
+  margin-top: 40px;
 }
